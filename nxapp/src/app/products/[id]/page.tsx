@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Product } from "@/types/product";
 
+export const instant = false;
+
 export default async function ProductDetail({
   params,
 }: {
@@ -45,3 +47,4 @@ export default async function ProductDetail({
     </div>
   );
 }
+
