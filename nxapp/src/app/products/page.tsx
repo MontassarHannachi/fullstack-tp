@@ -1,7 +1,7 @@
 ﻿import type { Product } from "@/types/product";
 
 export default async function Products() {
-  const response = await fetch("https://dummyjson.com/products/1");
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/1`);
   if (!response.ok) throw new Error("HTTP " + response.status);
   const product: Product = await response.json();
 
