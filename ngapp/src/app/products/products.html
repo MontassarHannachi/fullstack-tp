@@ -1,7 +1,26 @@
-﻿@if (error()) {
-  <p>{{ error() }}</p>
-} @else if (product(); as p) {
-  <p>{{ p.title }} - {{ p.description }}</p>
-} @else {
-  <p>Loading product...</p>
-}
+﻿<div class="container py-4">
+  <h1 class="mb-4">Catalogue</h1>
+
+  @if (error()) {
+    <div class="alert alert-danger">
+      {{ error() }}
+      <button class="btn btn-sm btn-outline-danger ms-2" (click)="load()">Retry</button>
+    </div>
+  } @else if (page(); as p) {
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
+      @for (product of p.products; track product.id) {
+        <div class="col">
+          <app-product-card [product]="product" />
+        </div>
+      }
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-4">
+      <button class="btn btn-primary" [disabled]="!hasPrevious()" (click)="previous()">Previous</button>
+      <span>{{ skip() + 1 }} - {{ rangeEnd() }} / {{ p.total }}</span>
+      <button class="btn btn-primary" [disabled]="!hasNext()" (click)="next()">Next</button>
+    </div>
+  } @else {
+    <p>Loading products...</p>
+  }
+</div>

@@ -1,0 +1,8 @@
+﻿<a [routerLink]="['/products', product().id]" class="card h-100 text-decoration-none text-reset">
+  <img [src]="product().thumbnail" [alt]="product().title" class="card-img-top thumb" />
+  <div class="card-body">
+    <h2 class="h6 card-title">{{ product().title }}</h2>
+    <p class="text-success mb-1">{{ '$' + product().price }}</p>
+    <p class="small text-muted description mb-0">{{ product().description }}</p>
+  </div>
+</a>

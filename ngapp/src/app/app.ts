@@ -2,11 +2,10 @@
 import { Router, RouterOutlet } from '@angular/router';
 import { Header } from './header/header';
 import { Child } from './child/child';
-import { Products } from './products/products';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, Child, Products],
+  imports: [RouterOutlet, Header, Child],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
@@ -29,3 +28,4 @@ export class App {
     this.chosen.set(state);
   }
 }
+
