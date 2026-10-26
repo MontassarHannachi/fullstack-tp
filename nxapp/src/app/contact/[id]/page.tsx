@@ -1,13 +1,10 @@
-﻿"use client";
-import { useParams } from "next/navigation";
+﻿import { Suspense } from "react";
+import ContactDetail from "@/components/ContactDetail";
 
-export default function ContactDetail() {
-  const params = useParams<{ id: string }>();
-
+export default function ContactPage() {
   return (
-    <>
-      <div>Contact Page</div>
-      <h2>Contact ID: {params.id}</h2>
-    </>
+    <Suspense fallback={<div>Loading...</div>}>
+      <ContactDetail />
+    </Suspense>
   );
 }
