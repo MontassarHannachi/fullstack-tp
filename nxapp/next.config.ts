@@ -1,6 +1,7 @@
 ﻿import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: 'standalone',
   images: { remotePatterns: [{ protocol: 'https', hostname: 'cdn.dummyjson.com' }] },
   /* config options here */
   cacheComponents: true,
@@ -16,4 +17,5 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
 
