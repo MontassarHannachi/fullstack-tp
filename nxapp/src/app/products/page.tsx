@@ -13,7 +13,7 @@ export default async function Products({
   const skip = Math.max(0, Number(skipParam) || 0);
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/products?limit=${LIMIT}&skip=${skip}`
+    `${process.env.API_URL}/products?limit=${LIMIT}&skip=${skip}`
   );
   if (!response.ok) throw new Error("HTTP " + response.status);
   const page: ProductPage = await response.json();
@@ -57,3 +57,4 @@ export default async function Products({
     </div>
   );
 }
+
