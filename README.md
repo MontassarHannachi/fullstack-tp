@@ -71,3 +71,14 @@ The seed imports 100 products from dummyjson (it needs an Internet connection).
 | GET /api/categories | categories with their number of products | 200 |
 
 Note: Prisma serializes the `price` (Decimal) as a string, for example "9.5".
+
+## Authentication (JWT)
+
+Write routes (`POST`, `PATCH`, `DELETE` on `/api/products`) require a JWT. Reads stay public.
+
+1. Copy `.env.example` to `.env` at the repository root and set `JWT_SECRET` to a long random string (32+ characters). This file is ignored by Git.
+2. Create an account: `POST /api/auth/register` with `{ "email": "...", "password": "..." }` (8 characters minimum).
+3. Sign in: `POST /api/auth/login` returns `{ "token": "..." }`. Send it as `Authorization: Bearer <token>`.
+4. The Angular `/admin` page redirects to `/login` when you are not signed in.
+
+Note: `register` is open, so anyone can create an account. This is acceptable for the lab, but a real site would restrict account creation.
