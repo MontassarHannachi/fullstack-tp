@@ -3,8 +3,6 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
-ARG NEXT_PUBLIC_API_URL=https://dummyjson.com
-ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 RUN npm run build
 
 FROM node:24-slim AS run
@@ -15,3 +13,4 @@ COPY --from=build /app/.next/static ./.next/static
 COPY --from=build /app/public ./public
 EXPOSE 3000
 CMD ["node", "server.js"]
+
