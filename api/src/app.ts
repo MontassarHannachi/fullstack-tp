@@ -3,6 +3,7 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import { productsRouter } from "./routes/products.js";
+import { categoriesRouter } from "./routes/categories.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
 
 export const app = express();
@@ -17,4 +18,6 @@ app.get("/api/health", (_req, res) => {
 });
 
 app.use("/api/products", productsRouter);
+app.use("/api/categories", categoriesRouter);
 app.use(errorHandler);
+
