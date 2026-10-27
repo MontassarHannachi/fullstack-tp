@@ -19,3 +19,9 @@ export interface ProductPage {
   skip: number;
   limit: number;
 }
+
+export interface CategoryCount {
+  id: number;
+  name: string;
+  _count: { products: number };
+}

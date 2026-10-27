@@ -1,25 +1,49 @@
 ﻿<div class="container py-4">
   <h1 class="mb-4">Catalogue</h1>
 
+  <form class="row g-2 mb-4" (submit)="$event.preventDefault(); search(searchBox.value, categoryBox.value)">
+    <div class="col-auto">
+      <input #searchBox class="form-control" placeholder="Search..." [value]="q()" />
+    </div>
+    <div class="col-auto">
+      <select #categoryBox class="form-select">
+        <option value="">All categories</option>
+        @for (c of categories(); track c.id) {
+          <option [value]="c.name" [selected]="c.name === category()">{{ c.name }} ({{ c._count.products }})</option>
+        }
+      </select>
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary">Search</button>
+      @if (q() || category()) {
+        <button type="button" class="btn btn-outline-secondary ms-2" (click)="reset()">Reset</button>
+      }
+    </div>
+  </form>
+
   @if (error()) {
     <div class="alert alert-danger">
       {{ error() }}
       <button class="btn btn-sm btn-outline-danger ms-2" (click)="load()">Retry</button>
     </div>
   } @else if (page(); as p) {
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
-      @for (product of p.products; track product.id) {
-        <div class="col">
-          <app-product-card [product]="product" />
-        </div>
-      }
-    </div>
+    @if (p.total === 0) {
+      <p>No product found.</p>
+    } @else {
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
+        @for (product of p.products; track product.id) {
+          <div class="col">
+            <app-product-card [product]="product" />
+          </div>
+        }
+      </div>
 
-    <div class="d-flex justify-content-between align-items-center mt-4">
-      <button class="btn btn-primary" [disabled]="!hasPrevious()" (click)="previous()">Previous</button>
-      <span>{{ skip() + 1 }} - {{ rangeEnd() }} / {{ p.total }}</span>
-      <button class="btn btn-primary" [disabled]="!hasNext()" (click)="next()">Next</button>
-    </div>
+      <div class="d-flex justify-content-between align-items-center mt-4">
+        <button class="btn btn-primary" [disabled]="!hasPrevious()" (click)="previous()">Previous</button>
+        <span>{{ skip() + 1 }} - {{ rangeEnd() }} / {{ p.total }}</span>
+        <button class="btn btn-primary" [disabled]="!hasNext()" (click)="next()">Next</button>
+      </div>
+    }
   } @else {
     <p>Loading products...</p>
   }
