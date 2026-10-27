@@ -82,3 +82,17 @@ Write routes (`POST`, `PATCH`, `DELETE` on `/api/products`) require a JWT. Reads
 4. The Angular `/admin` page redirects to `/login` when you are not signed in.
 
 Note: `register` is open, so anyone can create an account. This is acceptable for the lab, but a real site would restrict account creation.
+
+## Docker Hub images
+
+- https://hub.docker.com/r/montassar01/api
+- https://hub.docker.com/r/montassar01/ngapp
+- https://hub.docker.com/r/montassar01/nxapp
+
+Each image is published with the tags `1.0` and `latest`:
+
+    docker pull montassar01/api:1.0
+    docker pull montassar01/ngapp:1.0
+    docker pull montassar01/nxapp:1.0
+
+The API needs `DATABASE_URL` and `JWT_SECRET` at run time. They are never baked into the image: use `docker-compose.yml` with a local `.env` file (see `.env.example`).
