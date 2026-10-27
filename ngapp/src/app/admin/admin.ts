@@ -2,7 +2,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Product } from '../models/product';
+import { Router } from '@angular/router';
 import { ProductService } from '../product.service';
+import { AuthService } from '../auth.service';
 
 const LIMIT = 10;
 const EMPTY = { title: '', description: '', price: 1, thumbnail: '', stock: 0, category: '' };
@@ -15,6 +17,8 @@ const EMPTY = { title: '', description: '', price: 1, thumbnail: '', stock: 0, c
 export class Admin {
   private service = inject(ProductService);
   private fb = inject(FormBuilder);
+  private auth = inject(AuthService);
+  private router = inject(Router);
 
   products = signal<Product[]>([]);
   total = signal(0);
@@ -70,6 +74,11 @@ export class Admin {
     });
   }
 
+  logout() {
+    this.auth.logout();
+    this.router.navigate(['/login']);
+  }
+
   cancel() {
     this.editingId.set(null);
     this.form.reset(EMPTY);
@@ -115,3 +124,4 @@ export class Admin {
     return e.error?.error ?? 'Request failed (' + e.status + ')';
   }
 }
+
