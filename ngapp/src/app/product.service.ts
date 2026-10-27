@@ -2,7 +2,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
-import { CategoryCount, Product, ProductPage } from './models/product';
+import { CategoryCount, Product, ProductInput, ProductPage } from './models/product';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
@@ -21,5 +21,17 @@ export class ProductService {
 
   getCategories(): Observable<CategoryCount[]> {
     return this.http.get<CategoryCount[]>(`${environment.apiUrl}/categories`);
+  }
+
+  createProduct(product: ProductInput): Observable<Product> {
+    return this.http.post<Product>(`${environment.apiUrl}/products`, product);
+  }
+
+  updateProduct(id: number, product: Partial<ProductInput>): Observable<Product> {
+    return this.http.patch<Product>(`${environment.apiUrl}/products/${id}`, product);
+  }
+
+  deleteProduct(id: number): Observable<void> {
+    return this.http.delete<void>(`${environment.apiUrl}/products/${id}`);
   }
 }

@@ -25,3 +25,12 @@ export interface CategoryCount {
   name: string;
   _count: { products: number };
 }
+
+export interface ProductInput {
+  title: string;
+  description: string;
+  price: number;
+  thumbnail: string;
+  stock: number;
+  category: string;
+}
